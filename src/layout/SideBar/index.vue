@@ -1,6 +1,4 @@
 <template>
-  <div>sidebar</div>
-  <h4 @click="isCollapse = !isCollapse">测试</h4>
   <el-menu
     class="sidebar-container-menu"
     mode="vertical"
@@ -8,10 +6,15 @@
     :background-color="scssVariables.menuBg"
     :text-color="scssVariables.menuText"
     :active-text-color="scssVariables.menuActiveText"
-    :collapse="isCollapse"
+    :collapse="sidebar.open"
     :collapse-transition="true"
   >
-    <sidebar-item></sidebar-item>
+    <sidebar-item
+      v-for="route in menuRoutes"
+      :key="route.path"
+      :item="route"
+      :base-path="route.path"
+    ></sidebar-item>
   </el-menu>
 </template>
 
@@ -20,9 +23,19 @@ import { ref, computed } from "vue"
 import { useRoute } from "vue-router"
 import scssVariables from "@/styles/variables.module.scss"
 import SidebarItem from "./SidebarItem.vue"
+import { routes } from "../../router/index"
+import { storeToRefs } from "pinia"
+import { useAppStore } from "../../stores/app"
+const store = useAppStore()
+const { sidebar } = storeToRefs(store)
+
 const route = useRoute()
-const isCollapse = ref(false)
 const activeMenu = computed(() => {
-  return route.path
+  const { path, meta } = route
+  if (meta.activeMenu) {
+    return meta.activeMenu
+  }
+  return path
 })
+const menuRoutes = computed(() => routes)
 </script>

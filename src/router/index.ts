@@ -15,7 +15,8 @@ const constantRoutes: Array<RouteRecordRaw> = [
             /* webpackChunkName: "dashboard" */ "@/views/dashboard/index.vue"
           ),
         meta: {
-          title: "Dashboard"
+          title: "Dashboard",
+          icon: "dashboard"
         }
       }
     ]
@@ -53,7 +54,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
           import(/* webpackChunkName: "guide" */ "@/views/guide/index.vue"),
         meta: {
           title: "Guide",
-          icon: "guide"
+          icon: "guide",
+          activeMenu: "/documentation/index"
         }
       }
     ]
@@ -64,7 +66,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     redirect: "/system/user",
     meta: {
       title: "System",
-      icon: "lock"
+      icon: "lock",
+      alwaysShow: true
     },
     children: [
       {
@@ -75,23 +78,38 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
           title: "Menu Management",
           icon: "list"
         }
-      },
+      }
+      // {
+      //   path: "role",
+      //   component: () =>
+      //     import(/* webpackChunkName: "role" */ "@/views/system/role.vue"),
+      //   meta: {
+      //     title: "Role Management",
+      //     icon: "list"
+      //   }
+      // },
+      // {
+      //   path: "user",
+      //   component: () =>
+      //     import(/* webpackChunkName: "user" */ "@/views/system/user.vue"),
+      //   meta: {
+      //     title: "User Management",
+      //     icon: "list"
+      //   }
+      // }
+    ]
+  },
+  {
+    // 外链路由
+    path: "/external-link",
+    component: Layout,
+    children: [
       {
-        path: "role",
-        component: () =>
-          import(/* webpackChunkName: "role" */ "@/views/system/role.vue"),
+        path: "http://www.zhufengpeixun.com/",
+        redirect: "/",
         meta: {
-          title: "Role Management",
-          icon: "list"
-        }
-      },
-      {
-        path: "user",
-        component: () =>
-          import(/* webpackChunkName: "user" */ "@/views/system/user.vue"),
-        meta: {
-          title: "User Management",
-          icon: "list"
+          title: "External Link",
+          icon: "link"
         }
       }
     ]
