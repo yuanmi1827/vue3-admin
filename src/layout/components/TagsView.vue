@@ -66,7 +66,6 @@ const toLastView = (
     if (view.name === "Dashboard") {
       router.push({ path: view.path })
     } else {
-      alert(111)
       // tag都没有了 删除的也不是Dashboard 只能跳转首页
       router.push("/")
     }
