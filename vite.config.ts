@@ -2,24 +2,18 @@ import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
 import path from "path"
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons"
-
 // 自动导入
 import AutoImport from "unplugin-auto-import/vite"
 import Components from "unplugin-vue-components/vite"
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
 import ElementPlus from "unplugin-element-plus/vite"
-// import { createStyleImportPlugin,  ElementPlusResolve } from "vite-plugin-style-import"
+import {
+  createStyleImportPlugin,
+  ElementPlusResolve
+} from "vite-plugin-style-import"
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  resolve: {
-    alias: [
-      {
-        find: "@",
-        replacement: path.resolve(__dirname, "src")
-      }
-    ]
-  },
   plugins: [
     vue(),
     createSvgIconsPlugin({
@@ -32,7 +26,10 @@ export default defineConfig({
     AutoImport({
       imports: ["vue", "vue-router"], // 顺便自动导入 vue vue-router
       resolvers: [ElementPlusResolver()],
-      dts: "src/auto-import.d.ts" // 生成的全局变量放到此目录下
+      dts: "src/auto-import.d.ts", // 生成的全局变量放到此目录下
+      eslintrc: {
+        enabled: true
+      }
     }),
     Components({
       // 默认只针对src/components目录实现自动导入
@@ -40,6 +37,17 @@ export default defineConfig({
       dts: "src/components.d.ts",
       resolvers: [ElementPlusResolver()] // 生成的组件的类型放到这里
     }),
+    createStyleImportPlugin({
+      resolves: [ElementPlusResolve()]
+    }),
     ElementPlus()
-  ]
+  ],
+  resolve: {
+    alias: [
+      {
+        find: "@",
+        replacement: path.resolve(__dirname, "src")
+      }
+    ]
+  }
 })

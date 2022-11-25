@@ -30,6 +30,7 @@ const store = useAppStore()
 const { sidebar } = storeToRefs(store)
 
 const route = useRoute()
+console.log(route.matched, "1234567")
 const activeMenu = computed(() => {
   const { path, meta } = route
   if (meta.activeMenu) {

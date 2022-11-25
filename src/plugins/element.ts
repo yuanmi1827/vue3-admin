@@ -13,3 +13,4 @@ export default (app: App): void => {
 
   console.log(app, "0000")
 }
+export type Size = "default" | "large" | "small"

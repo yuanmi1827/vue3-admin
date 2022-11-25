@@ -8,7 +8,8 @@ module.exports = {
     "eslint:recommended",
     "plugin:vue/vue3-essential",
     "plugin:@typescript-eslint/recommended",
-    "@vue/prettier"
+    "@vue/prettier",
+    "./.eslintrc-auto-import.json"
   ],
   overrides: [],
   // "parser": "@typescript-eslint/parser",
@@ -21,6 +22,8 @@ module.exports = {
   plugins: ["vue", "@typescript-eslint", "eslint-plugin-prettier"],
   rules: {
     "vue/multi-word-component-names": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "prettier/prettier": [
       "error",
       {
